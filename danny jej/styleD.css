@@ -1,0 +1,30 @@
+.body{
+ background-color:#90A17D;   
+ text-align: center;
+}
+.body2{
+    background: #222;  
+    text-align: center;
+}
+.body-title{
+    color: aliceblue;
+}
+.body-title2{
+color: aliceblue;
+    text-align: center;
+    justify-content: center;
+}
+.sp{
+    color:#90A17D;
+}
+.basada{
+    justify-content: center;
+box-align: center;
+width: 40%;
+border-radius: 70%;
+}
+.video{
+    justify-content: center;
+    box-align: center;
+    size: 20%;
+}

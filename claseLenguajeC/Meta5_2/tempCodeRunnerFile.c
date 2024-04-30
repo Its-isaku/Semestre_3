@@ -1,0 +1,2 @@
+
+    //pedir memoria con malloc
