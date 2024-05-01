@@ -46,7 +46,7 @@ class BTS:
 
 # Uso del árbol y recorrido preOrden
 arbol = BTS()
-for clave in [50, 30, 20, 40, 70, 60, 80, 10, 90, 25]:
+for clave in [10, 5, 14, 7, 12]:
     arbol.insertar(clave)
 
 
