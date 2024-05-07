@@ -34,6 +34,6 @@ main:
     mul $s5,$s4,4 # Guarda en $s5 el resultado de $s4*4
     lw $s3, arreglo($s5) # Carga en $s3 arreglo[3]
     
-    #Salir del programa
+    # Salir del programa
     li $v0, 10
     syscall

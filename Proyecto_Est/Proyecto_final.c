@@ -14,6 +14,10 @@ float varianza_for1(int arr[], int n, float media, int *contador);
 float varianza_for2(int arr[], int n, float media, int *contador);
 double calcular_tiempo(struct timespec start, struct timespec end);
 
+double Calc_Z(double Alpha);
+
+double Calc_T(double Alpha, int NivSig);
+
 
 //codigo main
 int main()
@@ -56,25 +60,25 @@ int main()
         switch (opc)
         {
                 
-            case 1: //Tallos y hojas
+            case 1: //Tallos y hojas - Despues
                 
             break;
 
             //-----------------------------------------------
 
-            case 2: //Grafica de puntos
+            case 2: //Grafica de puntos - Despues
                 
             break;
 
             //-----------------------------------------------
 
-            case 3: //Histograma
+            case 3: //Histograma - Despues
                 
             break;
 
             //-----------------------------------------------
 
-            case 4: //Estadicos
+            case 4: //Estadicos - Despues
                 
             break;
 
@@ -476,27 +480,82 @@ int main()
 
             //-----------------------------------------------
 
-            case 10: //Calcular valores alha(tabla Z)
+            case 10: //Calcular valores alha(tabla Z y graficar area bajo la curva) - Despues
+
+
                 
             break;
 
             //-----------------------------------------------
 
-            case 11: //Encontrar Z con alpha
+            case 11: //Encontrar Z con alpha y el nivel de significancia 
+
+            int Opcion;
+            double alpha;
+            double p, z;
+
+            printf("**************************************\n");
+            printf("Selecciona la opcion deseada: \n");
+            printf("[1] Calcular Za.\n");
+            printf("[2] Calcular Za/2.\n");
+            printf("**************************************\n");
+            scanf("%d", &Opcion);
+            printf("--------------------------------------\n");
+
+            printf("Dame el valor de alpha: ");
+            scanf("%lf", &alpha);
+
+            if(Opcion == 1)
+            {
+
+                p = 1 - alpha;
+                z = Calc_Z(p);
+
+                printf("--------------------------------------\n");
+                printf("El valor de Z es: %.4f\n", z);
+
+
+            }
+
+            else if (Opcion == 2)
+            {
+
+                p = 1 - alpha / 2;
+                z = Calc_Z(p);
+
+                printf("--------------------------------------\n");
+                printf("El valor de Z es: %.4f\n", z);
+
+
+            }
+
+            else
+            {
+
+                printf("--------------------------------------\n");
+                printf("Opcion no valida.\n");
+                return 0;
+
+            }
+
             
-                
             break;
 
             //-----------------------------------------------
 
             case 12: //Localizar T
                 
+            // 1. crear funcion que calcule el valor de T con Los grados de libertad y alpha
+
             break;
 
             //-----------------------------------------------
 
             case 13: //Localizar grados de libertad y T
                 
+
+            // crear funcion que busque los grados de libertar y alpha dando el valore T
+
             break;
 
             //-----------------------------------------------
@@ -644,4 +703,35 @@ double calcular_tiempo(struct timespec start, struct timespec end)
 {
 
     return (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
+}
+
+
+double Calc_Z(double Alpha)
+{
+    // calcula el valor de Za/2 o Za
+    double x = 1 - 2 * Alpha;
+
+
+    // se determina el signo
+    double sgn = (x < 0) ? -1.0f : 1.0f;
+
+    // calcula la funcion inversa
+    x = (1 - x) * (1 + x);    
+    double Log = log(x);
+    double Temp1 = 2 / (M_PI * 0.147) + 0.5f * Log; 
+    double Temp2 = 1 / (0.147) * Log;
+    double resultado = sgn * sqrt(-Temp1 + sqrt(Temp1 * Temp1 - Temp2));
+
+    // se multiplica por sqrt(2) para ajustar la distribucion normal estandar
+    return sqrt(2) * resultado;
+
+}
+
+double Calc_T(double Alpha, int NivSig)
+{
+
+
+
+
+
 }
