@@ -36,14 +36,14 @@ int main()
         printf("------------------------------------------------------\n");
         printf("\n");
         printf("----------rutinas para graficos----------\n");
-        printf("[1]Tallos y hojas........................\n[2]Grafa de puntos.......................\n[3]Histograma............................\n[4]Estadicos.............................\n");
+        printf("[1]Tallos y hojas........................\n[2]Grafa de puntos.......................\n[3]Histograma............................\n");
         printf("\n");
         printf("----------rutinas para calcular----------\n");
-        printf("[5]Moda..................................\n[6]Media.................................\n[7]Media recortada.......................\n[8]Mediana...............................\n");
-        printf("[9]Varianza y desviacion estandar........\n");
+        printf("[4]Moda..................................\n[5]Media.................................\n[6]Media recortada.......................\n[7]Mediana...............................\n");
+        printf("[8]Varianza y desviacion estandar........\n");
         printf("\n");
         printf("--------rutinas para Tablas(Z y T)-------\n");
-        printf("[10]Calcular valores alha(tabla Z).......\n[11]Encontrar Z con alpha................\n[12]Localizar T..........................\n[13]Localizar grados de libertad y T.....\n");
+        printf("[9]Calcular valores alha(tabla Z).......\n[10]Encontrar Z con alpha................\n[11]Localizar T..........................\n[12]Localizar grados de libertad y T.....\n");
         printf("\n");
         printf("--------------Otras opciones-------------\n");
         printf("[0]salir....................\n");
@@ -78,15 +78,9 @@ int main()
 
             //-----------------------------------------------
 
-            case 4: //Estadicos - Despues
-                
-            break;
-
-            //-----------------------------------------------
-
-            case 5: // Moda
-            case 6: // Media
-            case 8: // Mediana
+            case 4: // Moda
+            case 5: // Media
+            case 7: // Mediana
 
             int opc2;
             printf("Quieres leer los datos de un archivo o propocionarlos tu?\n---------------------------------------\n[1] De un archivo\n[2] Dar los datos\n---------------------------------------\n");
@@ -134,15 +128,15 @@ int main()
 
                 switch (opc)
                 {
-                case 5: // Moda
+                case 4: // Moda
                     printf("La moda del arreglo es : %.2f\n", moda(arr, n));
                     break;
 
-                case 6: // Media
+                case 5: // Media
                     printf("La media del arreglo es : %.2f\n", media(arr, n));
                     break;
 
-                case 8: // Mediana
+                case 7: // Mediana
                     printf("La mediana del arreglo es : %.2f\n", mediana(arr, n));
                     break;
                 }
@@ -199,15 +193,15 @@ int main()
 
                 switch (opc)
                 {
-                case 5: // Moda
+                case 4: // Moda
                     printf("La moda del arreglo es : %.2f\n", moda(arr, n));
                     break;
 
-                case 6: // Media
+                case 5: // Media
                     printf("La media del arreglo es : %.2f\n", media(arr, n));
                     break;
 
-                case 8: // Mediana
+                case 7: // Mediana
                     printf("La mediana del arreglo es : %.2f\n", mediana(arr, n));
                     break;
                 }
@@ -220,7 +214,7 @@ int main()
 
             //-----------------------------------------------
 
-            case 7: // Media recortada
+            case 6: // Media recortada
 
             int opc3;
             printf("Quieres leer los datos de un archivo o propocionarlos tu?\n---------------------------------------\n[1] De un archivo\n[2] Dar los datos\n---------------------------------------\n");
@@ -324,7 +318,7 @@ int main()
 
             //-----------------------------------------------
 
-            case 9: //Varianza y Desviacion estandar
+            case 8: //Varianza y Desviacion estandar
                 
             int opc4;
             printf("Quieres leer los datos de un archivo o propocionarlos tu?\n---------------------------------------\n[1] De un archivo\n[2] Dar los datos\n---------------------------------------\n");
@@ -480,7 +474,7 @@ int main()
 
             //-----------------------------------------------
 
-            case 10: //Calcular valores alha(tabla Z y graficar area bajo la curva) - Despues
+            case 9: //Calcular valores alha(tabla Z y graficar area bajo la curva) - Despues
 
 
                 
@@ -488,7 +482,7 @@ int main()
 
             //-----------------------------------------------
 
-            case 11: //Encontrar Z con alpha y el nivel de significancia 
+            case 10: //Encontrar Z con alpha y el nivel de significancia 
 
             int Opcion;
             double alpha;
@@ -543,7 +537,7 @@ int main()
 
             //-----------------------------------------------
 
-            case 12: //Localizar T
+            case 11: //Localizar T dando alpha y grados de libertad
                 
             // 1. crear funcion que calcule el valor de T con Los grados de libertad y alpha
 
@@ -551,7 +545,7 @@ int main()
 
             //-----------------------------------------------
 
-            case 13: //Localizar grados de libertad y T
+            case 12: //Localizar grados de libertad y alpha con T
                 
 
             // crear funcion que busque los grados de libertar y alpha dando el valore T
