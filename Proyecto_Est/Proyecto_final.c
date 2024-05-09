@@ -28,6 +28,7 @@ double calcular_tiempo(struct timespec start, struct timespec end);
 double Calc_Z(double Alpha);
 int leer_tabla(const char *archivo, Valores *tabla);
 double buscar_valor_t(Valores *tabla, int num_filas, int gdl, double alpha);
+void buscar_por_t(Valores *tabla2, int num_filas2, double valor_t2);
 
 
 //codigo main
@@ -70,24 +71,24 @@ int main()
 
         switch (opc)
         {
-                
+            //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
             case 1: //Tallos y hojas - Despues
                 
             break;
 
-            //-----------------------------------------------
+            //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
             case 2: //Grafica de puntos - Despues
                 
             break;
 
-            //-----------------------------------------------
+            //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
             case 3: //Histograma - Despues
                 
             break;
 
-            //-----------------------------------------------
+            //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
             case 4: // Moda
             case 5: // Media
@@ -483,7 +484,7 @@ int main()
 
             break;
 
-            //-----------------------------------------------
+            //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
             case 9: //Calcular valores alha(tabla Z y graficar area bajo la curva) - Despues
 
@@ -491,8 +492,7 @@ int main()
                 
             break;
 
-            //-----------------------------------------------
-
+            //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
             case 10: //Encontrar Z con alpha y el nivel de significancia 
 
             int Opcion;
@@ -581,11 +581,35 @@ int main()
             case 12: //Localizar grados de libertad y alpha con T
                 
 
-            // crear funcion que busque los grados de libertar y alpha dando el valore T
+            Valores tabla2[FILAS];
+            int num_filas2 = leer_tabla("Tabla_T.txt", tabla2);
+
+            if (num_filas2 == -1) {
+                return 1;
+            }
+
+            double valor_t2;
+
+            // Pedir al usuario que ingrese el valor T
+            printf("Ingrese el valor T: ");
+            scanf("%lf", &valor_t2);
+
+            // Buscar el valor T en la tabla
+            buscar_por_t(tabla2, num_filas2, valor_t2);
 
             break;
 
-            //-----------------------------------------------
+            //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+            case 13: //programa nuevo -Despues
+                
+
+
+
+            break;
+
+            //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
         }
         
@@ -760,7 +784,7 @@ int leer_tabla(const char *archivo, Valores *tabla)
     if (file == NULL) 
     {
         printf("No se pudo abrir el archivo %s\n", archivo);
-        return -1;
+        return 0;
     }
 
     char header[256]; // Para saltar la primera línea del archivo
@@ -802,7 +826,7 @@ double buscar_valor_t(Valores *tabla, int num_filas, int gdl, double alphat)
         return -1.0;
     }
 
-    // Busca el valor T en la fila correspondiente a los grados de libertad (df)
+    // Busca el valor T en la fila correspondiente a los grados de libertad (gdl)
     for (int i = 0; i < num_filas; i++) 
     {
         if (tabla[i].gdl == gdl) 
@@ -813,4 +837,86 @@ double buscar_valor_t(Valores *tabla, int num_filas, int gdl, double alphat)
 
     printf("Grados de libertad no encontrados.\n");
     return -1.0;
+}
+
+// Encuentra el índice de columna basado en el valor más cercano
+int encontrar_columna(Valores *fila, int num_cols, double valor_t) 
+{
+    int col = -1;
+    double diferencia_minima = 1e10;
+
+    for (int i = 0; i < num_cols; i++) 
+    {
+        double diferencia = fabs(fila->values[i] - valor_t);
+        if (diferencia < diferencia_minima) 
+        {
+            diferencia_minima = diferencia;
+            col = i;
+        }
+    }
+
+    return col;
+}
+
+// Devuelve la descripción textual del nivel de significancia
+const char *nombre_significancia(int col) 
+{
+    if (col == 0)
+    {
+        return "0.10";
+    }
+    else if (col == 1)
+    {
+        return "0.05";
+    }
+    else if (col == 2)
+    {
+        return "0.025";
+    }
+    else if (col == 3)
+    {
+        return "0.01";
+    }
+    else if (col == 4)
+    {
+        return "0.00833";
+    }
+    else if (col == 5)
+    {
+        return "0.00625";
+    }
+    else if (col == 6)
+    {
+        return "0.005";
+    }
+    else
+    {
+        return "desconocido";
+    }
+}
+
+// Busca los grados de libertad y nivel de significancia dado un valor T
+void buscar_por_t(Valores *tabla2, int num_filas2, double valor_t2) {
+    int gdl_encontrado = -1;
+    int col_encontrada = -1;
+    double diferencia_minima = 1e10;
+
+    // Buscar por cada fila para encontrar el valor T más cercano
+    for (int i = 0; i < num_filas2; i++) {
+        int col = encontrar_columna(&tabla2[i], COLUMNAS, valor_t2);
+        double diferencia = fabs(tabla2[i].values[col] - valor_t2);
+
+        if (diferencia < diferencia_minima) {
+            diferencia_minima = diferencia;
+            gdl_encontrado = tabla2[i].gdl;
+            col_encontrada = col;
+        }
+    }
+
+    if (gdl_encontrado != -1 && col_encontrada != -1) {
+        printf("Grados de libertad (gdl) mas cercanos: %d\n", gdl_encontrado);
+        printf("Nivel de significancia mas cercano: %s\n", nombre_significancia(col_encontrada));
+    } else {
+        printf("No se encontraron resultados para el valor T proporcionado.\n");
+    }
 }
