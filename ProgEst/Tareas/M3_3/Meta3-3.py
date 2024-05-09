@@ -1,4 +1,5 @@
 #Librerias
+import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 from PIL import Image, ImageTk
@@ -23,7 +24,11 @@ def exit():
     login.destroy()
 
 # Creaando ventana
-login = Tk()
+login = tk.Tk()
+
+#creando estilos
+estilo = ttk.Style()
+estilo.configure("e.TLabel", font=('Comfortaa', 80), bg="#071b40", fg="#e0e2d0")
 
 # parameters de ventana
 login.geometry("600x600")
@@ -35,8 +40,8 @@ icon_img = Image.open('C:\\Users\\RogSt\\Desktop\\Coding\\ProgEst\\Tareas\\M3_3\
 tk_icon_img = ImageTk.PhotoImage(icon_img)
 login.iconphoto(False, tk_icon_img)
 
-# Creando labels , widgets y botones
-Label(login, text="Login", font=('Comfortaa', 80), bg="#071b40", fg="#e0e2d0").place(relx=0.30, rely=0.05)
+# Creando labels, widgets y botones
+ttk.Label(login, text="Login", style="e.TLabel").pack(pady=20)
 Label(login, text="Username", font=('Comfortaa', 30), bg="#071b40", fg="#e0e2d0").place(relx=0.05, rely=0.50)
 Label(login, text="Password", font=('Comfortaa', 30), bg="#071b40", fg="#e0e2d0").place(relx=0.05, rely=0.64)
 
@@ -46,9 +51,9 @@ user_entry.place(relx=0.40, rely=0.52)
 pass_entry = Entry(login, show="*", width=30, justify=CENTER, font=('Comfortaa', 15))
 pass_entry.place(relx=0.40, rely=0.66)
 
-Button(login, text="Login", width=15, height=2, command=lambda: Login(user_entry, pass_entry), bg="#e0e2d0", fg="#1b1c1e").place(relx=0.145, rely=0.8)
-salir = Button(text='Salir',width=15, height=2, command=exit, bg = "tomato", fg = "white").place(relx=.745, rely=0.8)
-
+ttk.Button(login, text="Login", width=15, height=2, command=lambda: Login(user_entry, pass_entry), style="e.TButton").place(relx=0.145, rely=0.8)
+salir = ttk.Button(login, text='Salir', width=15, height=2, command=exit, style="e.TButton")
+salir.place(relx=.745, rely=0.8)
 
 # Cargando segunda imagen
 img_path = "C:\\Users\\RogSt\\Desktop\\Coding\\ProgEst\\Tareas\\M3_3\\imagen2.png"

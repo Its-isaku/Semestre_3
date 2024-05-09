@@ -4,6 +4,18 @@
 #include <math.h>
 #include <time.h>
 
+// defino las columnas y las filas para calcular T
+#define FILAS 30
+#define COLUMNAS 7
+
+//defino estructuras
+typedef struct {
+    int gdl;
+    double values[COLUMNAS];
+} Valores;
+
+
+
 //Declaracion de funciones
 void bubbleSort(int arr[], int n);
 float mediana(int arr[], int n);
@@ -13,10 +25,9 @@ float moda(int arr[], int n);
 float varianza_for1(int arr[], int n, float media, int *contador);
 float varianza_for2(int arr[], int n, float media, int *contador);
 double calcular_tiempo(struct timespec start, struct timespec end);
-
 double Calc_Z(double Alpha);
-
-double Calc_T(double Alpha, int NivSig);
+int leer_tabla(const char *archivo, Valores *tabla);
+double buscar_valor_t(Valores *tabla, int num_filas, int gdl, double alpha);
 
 
 //codigo main
@@ -539,7 +550,29 @@ int main()
 
             case 11: //Localizar T dando alpha y grados de libertad
                 
-            // 1. crear funcion que calcule el valor de T con Los grados de libertad y alpha
+            Valores tabla[FILAS];
+            int num_filas = leer_tabla("Tabla_T.txt", tabla);
+        
+            if (num_filas == -1) 
+            {
+                return 1;
+            }
+        
+            int gdl;
+            double alphat;
+        
+            // Pedir al usuario que ingrese los grados de libertad y el nivel de significancia
+            printf("Ingrese los grados de libertad (gdl): ");
+            scanf("%d", &gdl);
+            printf("Ingrese el nivel de significancia (alpha): ");
+            scanf("%lf", &alphat);
+        
+            // Buscar el valor T
+            double t_valor = buscar_valor_t(tabla, num_filas, gdl, alphat);
+            if (t_valor != -1.0) 
+            {
+            printf("El valor T con %d grados de libertad y %.5f como nivel de significancia es: %.3f\n", gdl, alphat, t_valor);
+            }
 
             break;
 
@@ -721,11 +754,63 @@ double Calc_Z(double Alpha)
 
 }
 
-double Calc_T(double Alpha, int NivSig)
+int leer_tabla(const char *archivo, Valores *tabla) 
 {
+    FILE *file = fopen(archivo, "r");
+    if (file == NULL) 
+    {
+        printf("No se pudo abrir el archivo %s\n", archivo);
+        return -1;
+    }
 
+    char header[256]; // Para saltar la primera línea del archivo
+    fgets(header, sizeof(header), file);
 
+    int index = 0;
+    while (index < FILAS && fscanf(file, "%d %lf %lf %lf %lf %lf %lf %lf",
+                            &tabla[index].gdl,
+                            &tabla[index].values[0],
+                            &tabla[index].values[1],
+                            &tabla[index].values[2],
+                            &tabla[index].values[3],
+                            &tabla[index].values[4],
+                            &tabla[index].values[5],
+                            &tabla[index].values[6]) == 8) 
+                            {
+                                index++;
+                            }   
 
+    fclose(file);
+    return index; // Número de filas leídas
+}
 
+// Función para buscar el valor T dado df y alpha
+double buscar_valor_t(Valores *tabla, int num_filas, int gdl, double alphat) 
+{
+    int col = -1;
 
+    // Selecciona la columna correspondiente basada en el nivel de significancia
+    if (alphat == 0.10) col = 0;
+    else if (alphat == 0.05) col = 1;
+    else if (alphat == 0.025) col = 2;
+    else if (alphat == 0.01) col = 3;
+    else if (alphat == 0.00833) col = 4;
+    else if (alphat == 0.00625) col = 5;
+    else if (alphat == 0.005) col = 6;
+    else {
+        printf("Nivel de significancia no valido.\n");
+        return -1.0;
+    }
+
+    // Busca el valor T en la fila correspondiente a los grados de libertad (df)
+    for (int i = 0; i < num_filas; i++) 
+    {
+        if (tabla[i].gdl == gdl) 
+        {
+            return tabla[i].values[col];
+        }
+    }
+
+    printf("Grados de libertad no encontrados.\n");
+    return -1.0;
 }

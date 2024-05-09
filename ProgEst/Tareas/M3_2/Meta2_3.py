@@ -4,7 +4,6 @@ from tkinter import ttk
 
 #funciones
 def Suma():
-    #tomando valores de a y b
     result = int(a.get()) + int(b.get())
     #mostrando resultado
     text_result.config(text="" + str(result))

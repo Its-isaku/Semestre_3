@@ -1,2 +1,2 @@
 
-    int opc;
+            return tabla[i].values[col];
