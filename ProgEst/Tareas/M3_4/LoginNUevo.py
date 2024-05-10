@@ -29,6 +29,10 @@ def Ventana2():
             VentanaSec1.title('Sesion Admin')
 
             #agregar imagen
+            imagenVentanaa2 = tk.PhotoImage(file = "C:\\Users\\RogSt\\Desktop\\Coding\\ProgEst\\Tareas\\M3_4\\imagenAdm.png")
+            subimg2 = imagenVentanaa2.subsample(12)
+            tk.Label(VentanaSec1, bg = "white", image = subimg2).place(relx = 0.05, rely = 0.05)
+
             ttk.Label(VentanaSec1, text = "bienvenido Admin!",background = "#239B56" , style = "S3.TLabel").place(relx=0.15, rely=0.55)
             Regresar1 = tk.Button(VentanaSec1, text="Regresar", width= 10, height=2, command=ev2).place(relx=0.38, rely=0.75)
 
