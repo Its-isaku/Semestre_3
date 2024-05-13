@@ -4,6 +4,7 @@ from tkinter import Toplevel, messagebox
 from tkinter import ttk
 from cProfile import label
 from sys import maxsize
+import random
 
 
 
@@ -15,12 +16,78 @@ def Ventana2():
 
     global subimg2
 
+    #creando dificultadoes para el juego matematico
+    def Mododalidad():
+
+        Modo_de_dificultad = dificultad_Combobox.get()
+
+        if Modo_de_dificultad == "facil":
+            messagebox.showinfo("Modo fácil", "Has seleccionado modo fácil.")
+            num1 = random.randrange(1, 10)
+            NumAleatorio1.config(text=str(num1))
+
+            num2 = random.randrange(1, 10)
+            NumAleatorio2.config(text="" + str(num2))
+
+
+        elif Modo_de_dificultad == "medio":
+            messagebox.showinfo("Modo medio", "Has seleccionado modo medio.")
+            num1 = random.randrange(1, 100)
+            NumAleatorio1.config(text=str(num1))
+
+            num2 = random.randrange(1, 100)
+            NumAleatorio2.config(text="" + str(num2))
+
+        elif Modo_de_dificultad == "avanzado":
+            messagebox.showinfo("Modo avanzado", "Has seleccionado modo avanzado.")
+            num1 = random.randrange(1, 1000)
+            NumAleatorio1.config(text=str(num1))
+
+            num2 = random.randrange(1, 1000)
+            NumAleatorio2.config(text="" + str(num2))
+
+        else:
+            messagebox.showerror("Selección de dificultad", "Por favor, selecciona una dificultad.")
+
+
+    def generar_numeros():
+        nivel = dificultad_Combobox.get()
+        if nivel == "facil":
+            num1 = random.randrange(1, 10)
+            num2 = random.randrange(1, 10)
+        elif nivel == "medio":
+            num1 = random.randrange(1, 100)
+            num2 = random.randrange(1, 100)
+        elif nivel == "avanzado":
+            num1 = random.randrange(1, 1000)
+            num2 = random.randrange(1, 1000)
+        else:
+            messagebox.showerror("Selección de dificultad", "Por favor, selecciona una dificultad.")
+            return
+
+        NumAleatorio1.config(text=str(num1))
+        NumAleatorio2.config(text=str(num2))
+    
+    #verificando la respuesta
+    def verificar_respuesta():
+        num1 = int(NumAleatorio1.cget("text"))
+        num2 = int(NumAleatorio2.cget("text"))
+        resultado_esperado = num1 + num2
+        resultado_usuario = int(resultado.get())
+
+        if resultado_usuario == resultado_esperado:
+            messagebox.showinfo("Correcto", "¡Correcto!")
+        else:
+            messagebox.showerror("Incorrecto", "Incorrecto")
+
+        # Generar nuevos números independientemente del resultado
+        generar_numeros()
+
     def ev2():
         Login.deiconify()
         VentanaSec1.destroy()
 
 
-        #Crear funcion para validar si la suma es correcta
 
 
 
@@ -31,6 +98,7 @@ def Ventana2():
             Login.withdraw()
             VentanaSec1 = Toplevel()
             
+            VentanaSec1.resizable(width = False, height = False)
             VentanaSec1.configure(bg = "#239B56")
             VentanaSec1.geometry('380x320')
             VentanaSec1.title('Sesion Admin')
@@ -52,6 +120,7 @@ def Ventana2():
             Login.withdraw()
             VentanaSec1 = Toplevel()
 
+            VentanaSec1.resizable(width = False, height = False)
             VentanaSec1.configure(bg = "#FF5733")
             VentanaSec1.geometry('380x320')
             VentanaSec1.title('Sesion Secretaria')
@@ -72,6 +141,7 @@ def Ventana2():
             Login.withdraw()
             VentanaSec1 = Toplevel()
 
+            VentanaSec1.resizable(width = False, height = False)
             VentanaSec1.configure(bg = "#FFA07A")
             VentanaSec1.geometry('380x320')
             VentanaSec1.title('Sesion Invitado')
@@ -94,22 +164,49 @@ def Ventana2():
             VentanaSec1.configure(bg = "#DAF7A6")
             VentanaSec1.geometry('580x520')
             VentanaSec1.title('Sesion Juegos de matematicas')
+            VentanaSec1.resizable(width = False, height = False)
 
             #texto de Bienvenida
             ttk.Label(VentanaSec1, text = "Juegos de habilidades matematicas!",background = "#DAF7A6" , style = "S4.TLabel").place(relx=0.047, rely=0.05)
 
-            #elementos
+            global dificultad_Combobox
             ttk.Label(VentanaSec1, text = "Selecciona Dificultad:",background = "#DAF7A6", style = "S5.TLabel").place(relx=0.044, rely=0.25)
-            dificultad = ttk.Combobox(VentanaSec1, values = ['facil', 'medio', 'avanzado'], font=('Comfortaa', 15), justify = "center",width = 10)
-            dificultad.place(relx=0.545, rely=0.26)
-
-            #boton para iniciar
-            iniciar = tk.Button(VentanaSec1, text = "Iniciar",font=('Comfortaa', 12))
-            iniciar.place(relx=0.8, rely=0.255)
+            dificultad_Combobox = ttk.Combobox(VentanaSec1, values = ['facil', 'medio', 'avanzado'], font=('Comfortaa', 15), justify = "center",width = 10)
+            dificultad_Combobox.place(relx=0.545, rely=0.26)
 
             #botton para regresar
             Regresar1 = tk.Button(VentanaSec1, text = "Regresar", font=('Comfortaa', 15), command=ev2)
-            Regresar1.place(relx=0.44, rely=0.85)
+            Regresar1.place(relx=0.24, rely=0.85)
+
+            #boton para iniciar
+            iniciar = tk.Button(VentanaSec1, text = "Iniciar",font=('Comfortaa', 12), command = Mododalidad)
+            iniciar.place(relx=0.8, rely=0.255)
+
+            #boton para verificar
+            verificar = tk.Button(VentanaSec1, text = "Verificar", font=('Comfortaa', 15), command=verificar_respuesta)
+            verificar.place(relx=0.53, rely=0.85)
+
+            #crando secciones para difcultades
+            
+            NumAleatorio1 = ttk.Label(VentanaSec1, text = "",background = "white", width = 8, justify = "center", style = "S5.TLabel")
+            NumAleatorio1.place(relx=0.05, rely=0.55)
+
+            SignoMas = ttk.Label(VentanaSec1, text = "+",background = "#DAF7A6", style = "S5.TLabel")
+            SignoMas.place(relx=0.27, rely=0.55)
+
+            NumAleatorio2 = ttk.Label(VentanaSec1, text = "",background = "white", width = 8, justify = "center", style = "S5.TLabel")
+            NumAleatorio2.place(relx=0.32, rely=0.55)
+
+            SignoMas = ttk.Label(VentanaSec1, text = "=",background = "#DAF7A6", style = "S5.TLabel")
+            SignoMas.place(relx=0.55, rely=0.55)
+
+            resultado = tk.Entry(VentanaSec1, justify = "center", width = 10,font=('Comfortaa', 20))
+            resultado.place(relx=0.60, rely=0.55)
+
+                
+
+
+
 
             #crear entrys donde aparezcan los numeros que deberas sumar y un entry para poner la respuesta
             #si la respuesta es correcta, arrojar un messagebox con su respectivo mensaje
