@@ -8,6 +8,9 @@
 #define FILAS 30
 #define COLUMNAS 7
 
+//defino constante para histograma
+#define Datos_Maximos 100
+
 //defino estructuras
 typedef struct {
     int gdl;
@@ -84,8 +87,101 @@ int main()
 
             //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-            case 3: //Histograma - Despues
+            case 3: //Histograma
                 
+                FILE *file;
+    int data[Datos_Maximos];
+    int count = 0;
+    int option;
+    char filename[256];
+
+    // Preguntar al usuario si desea leer los datos de un archivo o ingresarlos manualmente
+    printf("Seleccione una opcion:\n");
+    printf("1. Leer datos de un archivo\n");
+    printf("2. Ingresar datos manualmente\n");
+    scanf("%d", &option);
+
+    if (option == 1) {
+        // Leer datos del archivo
+        file = fopen("C:\\Users\\RogSt\\Desktop\\Coding\\Proyecto_Est\\prueba.txt", "r");
+        if (file == NULL) {
+            perror("Error al abrir el archivo");
+            return 1;
+        }
+
+        // Leer los datos del archivo
+        while (fscanf(file, "%d", &data[count]) != EOF && count < Datos_Maximos) {
+            count++;
+        }
+        fclose(file);
+
+
+
+
+    } else if (option == 2) {
+        // Ingresar datos manualmente
+            printf("Ingrese la cantidad de datos: ");
+            scanf("%d", &count);
+
+            if (count > Datos_Maximos) 
+            {
+                printf("La cantidad máxima de datos es %d\n", Datos_Maximos);
+                return 1;
+            }
+
+            printf("Ingrese los datos:\n");
+            for (int i = 0; i < count; i++) 
+            {
+                printf("Dato %d: ", i + 1);
+                scanf("%d", &data[i]);
+            }
+        } 
+        
+        else 
+        {
+            printf("Opción no válida\n");
+            return 1;
+        }
+
+        // Crear archivo de datos para GNUplot
+        file = fopen("C:\\Users\\RogSt\\Desktop\\Coding\\Proyecto_Est\\histograma\\datos_gnuplot.txt", "w");
+        if (file == NULL) 
+        {
+            perror("Error al crear el archivo de datos para GNUplot");
+            return 1;
+        }
+
+        for (int i = 0; i < count; i++) 
+        {
+            fprintf(file, "%d\n", data[i]);
+        }
+        fclose(file);
+
+        // Crear script para GNUplot
+        file = fopen("C:\\Users\\RogSt\\Desktop\\Coding\\Proyecto_Est\\histograma\\histograma.gnuplot", "w");
+        if (file == NULL) 
+        {
+            perror("Error al crear el archivo de script para GNUplot");
+            return 1;
+        }
+
+        fprintf(file,
+                "set terminal pngcairo enhanced font 'Verdana,10'\n"
+                "set output 'C:\\Users\\RogSt\\Desktop\\Coding\\Proyecto_Est\\histograma\\histograma.png'\n"
+                "set title 'Histograma de datos'\n"
+                "set xlabel 'Valores'\n"
+                "set ylabel 'Frecuencia'\n"
+                "set style data histograms\n"
+                "set style fill solid 1.0 border -1\n"
+                "set xtics rotate by -90\n"  // Rotar etiquetas del eje X
+                "plot 'C:\\Users\\RogSt\\Desktop\\Coding\\Proyecto_Est\\histograma\\datos_gnuplot.txt' using 1:xtic(1) title 'Datos' with histograms\n");
+        fclose(file);
+
+        // Ejecutar GNUplot
+        system("gnuplot C:\\Users\\RogSt\\Desktop\\Coding\\Proyecto_Est\\histograma\\histograma.gnuplot");
+
+        printf("El hitograma fue creado exitosamente!\n");
+
             break;
 
             //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
