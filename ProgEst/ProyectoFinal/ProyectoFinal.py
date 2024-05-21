@@ -20,16 +20,24 @@ def VentaBoletos():
             VBoletos.deiconify()
             VentanaSec1.destroy()
 
+        
         def MontoEdad():
             global Mfinal
-            if TipoEdades.get() == '5 - 15':
+            if TipoEdades.get() == '':
+                messagebox.showerror("Error", "Seleccione una edad válida")
+                Mfinal = None
+                return None
+            edad = TipoEdades.get()
+            if edad == '5 - 15':
                 Mfinal = 40
-            elif TipoEdades.get() in ['16 - 18', '19 - 29', '30 - 39']:
-                Mfinal = 70 
-            elif TipoEdades.get() == '40 - 60+':
+            elif edad in ['16 - 18', '19 - 29', '30 - 39']:
+                Mfinal = 70
+            elif edad == '40 - 60+':
                 Mfinal = 45
             else:
                 messagebox.showerror("Error", "Seleccione una edad válida")
+                Mfinal = None
+                return None
 
         def MontoCantidad():
             global CantidadPersonas
@@ -37,73 +45,94 @@ def VentaBoletos():
                 CantidadPersonas = int(TipoCantidad.get())
             except ValueError:
                 messagebox.showerror("Error", "Seleccione una cantidad válida")
+                CantidadPersonas = None
 
         def MontoFinal():
             MontoEdad()
             MontoCantidad()
 
             def Parte1():
-                if Mfinal == 45 and CantidadPersonas >= 4:
-                    return Mfinal * CantidadPersonas * (1 - 0.15)
-                elif Mfinal == 70 and CantidadPersonas >= 4:
-                    return Mfinal * CantidadPersonas * (1 - 0.15)
-                elif Mfinal == 40 and CantidadPersonas >= 4:
-                    return Mfinal * CantidadPersonas * (1 - 0.15)
-                elif Mfinal == 40 and CantidadPersonas <= 3:
-                    return Mfinal * CantidadPersonas
-                elif Mfinal == 70 and CantidadPersonas <= 3:
-                    return Mfinal * CantidadPersonas
-                elif Mfinal == 45 and CantidadPersonas <= 3:
-                    return Mfinal * CantidadPersonas
+                global Mfinal
+                if Mfinal != None and CantidadPersonas != None:
+                    if Mfinal == 45 and CantidadPersonas >= 4:
+                        return Mfinal * CantidadPersonas * (1 - 0.15)
+                    elif Mfinal == 70 and CantidadPersonas >= 4:
+                        return Mfinal * CantidadPersonas * (1 - 0.15)
+                    elif Mfinal == 40 and CantidadPersonas >= 4:
+                        return Mfinal * CantidadPersonas * (1 - 0.15)
+                    elif Mfinal == 40 and CantidadPersonas <= 3:
+                        return Mfinal * CantidadPersonas
+                    elif Mfinal == 70 and CantidadPersonas <= 3:
+                        return Mfinal * CantidadPersonas
+                    elif Mfinal == 45 and CantidadPersonas <= 3:
+                        return Mfinal * CantidadPersonas
+                else:
+                    return 0
 
             def Parte2():
                 tarifa = 0
-                if inicio_var.get() == "Tecate" and destino_var.get() == "Tijuana":
-                    tarifa = 30 
-                elif inicio_var.get() == "Tecate" and destino_var.get() == "Mexicali":
-                    tarifa = 40 
-                elif inicio_var.get() == "Tecate" and destino_var.get() == "Ensenada":
-                    tarifa = 50 
-                elif inicio_var.get() == "Tecate" and destino_var.get() == "Rosarito":
-                    tarifa = 50 
+                if inicio_var.get() != "" and destino_var.get() != "":
+                    if inicio_var.get() == "Tecate" and destino_var.get() == "Tijuana":
+                        tarifa = 30 
+                    elif inicio_var.get() == "Tecate" and destino_var.get() == "Mexicali":
+                        tarifa = 40 
+                    elif inicio_var.get() == "Tecate" and destino_var.get() == "Ensenada":
+                        tarifa = 50 
+                    elif inicio_var.get() == "Tecate" and destino_var.get() == "Rosarito":
+                        tarifa = 50 
+                    elif inicio_var.get() == "Tecate" and destino_var.get() == "Tecate":
+                        messagebox.showerror("Error!","Tu inicio y destino no pueden ser iguales!")
 
-                elif inicio_var.get() == "Tijuana" and destino_var.get() == "Tecate":
-                    tarifa = 30 
-                elif inicio_var.get() == "Tijuana" and destino_var.get() == "Mexicali":
-                    tarifa = 40 
-                elif inicio_var.get() == "Tijuana" and destino_var.get() == "Ensenada":
-                    tarifa = 50 
-                elif inicio_var.get() == "Tijuana" and destino_var.get() == "Rosarito":
-                    tarifa = 50 
+                    elif inicio_var.get() == "Tijuana" and destino_var.get() == "Tecate":
+                        tarifa = 30 
+                    elif inicio_var.get() == "Tijuana" and destino_var.get() == "Mexicali":
+                        tarifa = 40 
+                    elif inicio_var.get() == "Tijuana" and destino_var.get() == "Ensenada":
+                        tarifa = 50 
+                    elif inicio_var.get() == "Tijuana" and destino_var.get() == "Rosarito":
+                        tarifa = 50
+                    elif inicio_var.get() == "Tijuana" and destino_var.get() == "Tijuana":
+                        messagebox.showerror("Error!","Tu inicio y destino no pueden ser iguales!")
 
-                elif inicio_var.get() == "Mexicali" and destino_var.get() == "Tijuana":
-                    tarifa = 30 
-                elif inicio_var.get() == "Mexicali" and destino_var.get() == "Tecate":
-                    tarifa = 40 
-                elif inicio_var.get() == "Mexicali" and destino_var.get() == "Ensenada":
-                    tarifa = 50 
-                elif inicio_var.get() == "Mexicali" and destino_var.get() == "Rosarito":
-                    tarifa = 50 
+                    elif inicio_var.get() == "Mexicali" and destino_var.get() == "Tijuana":
+                        tarifa = 30 
+                    elif inicio_var.get() == "Mexicali" and destino_var.get() == "Tecate":
+                        tarifa = 40 
+                    elif inicio_var.get() == "Mexicali" and destino_var.get() == "Ensenada":
+                        tarifa = 50 
+                    elif inicio_var.get() == "Mexicali" and destino_var.get() == "Rosarito":
+                        tarifa = 50
+                    elif inicio_var.get() == "Mexicali" and destino_var.get() == "Mexicali":
+                        messagebox.showerror("Error!","Tu inicio y destino no pueden ser iguales!")
 
-                elif inicio_var.get() == "Ensenada" and destino_var.get() == "Tijuana":
-                    tarifa = 50 
-                elif inicio_var.get() == "Ensenada" and destino_var.get() == "Mexicali":
-                    tarifa = 50 
-                elif inicio_var.get() == "Ensenada" and destino_var.get() == "Tecate":
-                    tarifa = 50 
-                elif inicio_var.get() == "Ensenada" and destino_var.get() == "Rosarito":
-                    tarifa = 30 
+                    elif inicio_var.get() == "Ensenada" and destino_var.get() == "Tijuana":
+                        tarifa = 50 
+                    elif inicio_var.get() == "Ensenada" and destino_var.get() == "Mexicali":
+                        tarifa = 50 
+                    elif inicio_var.get() == "Ensenada" and destino_var.get() == "Tecate":
+                        tarifa = 50 
+                    elif inicio_var.get() == "Ensenada" and destino_var.get() == "Rosarito":
+                        tarifa = 30
+                    elif inicio_var.get() == "Ensenada" and destino_var.get() == "Ensenada":
+                        messagebox.showerror("Error!","Tu inicio y destino no pueden ser iguales!") 
 
-                elif inicio_var.get() == "Rosarito" and destino_var.get() == "Tijuana":
-                    tarifa = 50 
-                elif inicio_var.get() == "Rosarito" and destino_var.get() == "Mexicali":
-                    tarifa = 50 
-                elif inicio_var.get() == "Rosarito" and destino_var.get() == "Ensenada":
-                    tarifa = 30 
-                elif inicio_var.get() == "Rosarito" and destino_var.get() == "Tecate":
-                    tarifa = 50 
+                    elif inicio_var.get() == "Rosarito" and destino_var.get() == "Tijuana":
+                        tarifa = 50 
+                    elif inicio_var.get() == "Rosarito" and destino_var.get() == "Mexicali":
+                        tarifa = 50 
+                    elif inicio_var.get() == "Rosarito" and destino_var.get() == "Ensenada":
+                        tarifa = 30 
+                    elif inicio_var.get() == "Rosarito" and destino_var.get() == "Tecate":
+                        tarifa = 50
+                    elif inicio_var.get() == "Rosarito" and destino_var.get() == "Rosarito":
+                        messagebox.showerror("Error!","Tu inicio y destino no pueden ser iguales!")
+                        
+                    return tarifa * CantidadPersonas
+                
+                elif inicio_var.get() == "" and destino_var.get() == "":
+                    messagebox.showerror("Error!","Elige un inicio y destino!")
 
-                return tarifa * CantidadPersonas
+                return 0
 
             M1 = Parte1()
             M2 = Parte2()
@@ -127,10 +156,10 @@ def VentaBoletos():
             VentanaSec2.iconbitmap("C:\\Users\\RogSt\\Desktop\\Coding\\ProgEst\\ProyectoFinal\\imagenes\\IconoVentana.ico")
             VentanaSec2.resizable(width = False, height = False)
 
-            texto8 = ttk.Label(VentanaSec2, text="sistema de cobro:", style="S1.TLabel")
+            texto8 = ttk.Label(VentanaSec2, text="Sistema de cobro:", style="S1.TLabel")
             texto8.place(relx=0.23, rely=0.05)
 
-            texto9 = ttk.Label(VentanaSec2, text="-----------------------------------------------------\n Para saber el monto total que se cobrara, \n primero se calcula cuanto se cobra cada\n boleto dependiendo de la edad del individuo\n despues se suma el costo de cada boleto y\n se obtiene el valor total que sera cobrado\n-----------------------------------------------------", style="S4.TLabel")
+            texto9 = ttk.Label(VentanaSec2, text="-----------------------------------------------------\n Para saber el monto total que se cobrará, \n primero se calcula cuánto se cobra cada\n boleto dependiendo de la edad del individuo\n después se suma el costo de cada boleto y\n se obtiene el valor total que será cobrado\n-----------------------------------------------------", style="S4.TLabel")
             texto9.place(relx=0.15, rely=0.15)
 
             texto10 = ttk.Label(VentanaSec2, text="Edades", style="S1.TLabel")
@@ -166,7 +195,12 @@ def VentaBoletos():
             salir.place(relx=0.4, rely=0.9)
 
         if TipoBoleto.get() != "":
+
             if TipoBoleto.get() == "Viaje":
+
+                def BoletoComprado():
+                    print("Crear ventana de recibo")
+
                 def reset_inicio():
                     inicio_var.set("")
 
@@ -217,7 +251,7 @@ def VentaBoletos():
                                 font=('Arial', 16, 'bold'),
                                 text="Salir",
                                 )
-                salir.place(relx=0.43, rely=0.78)
+                salir.place(relx=0.36, rely=0.78)
 
                 Promos1 = tk.Button(VentanaSec1,
                                 command=Promos1,
@@ -227,15 +261,15 @@ def VentaBoletos():
                                 activeforeground="#18392b",
                                 highlightthickness=2,
                                 highlightcolor="#dcbb57",
-                                width=14,
+                                width=9,
                                 height=1,
                                 border=0,
                                 font=('Arial', 16, 'bold'),
                                 text="Promos",
                                 )
-                Promos1.place(relx=0.398, rely=0.7)
+                Promos1.place(relx=0.5, rely=0.78)
 
-                Comprar = tk.Button(VentanaSec1,
+                CalcMFinal = tk.Button(VentanaSec1,
                                 command=MontoFinal,
                                 background="#49ab81",
                                 foreground="#18392b",
@@ -247,9 +281,25 @@ def VentaBoletos():
                                 height=1,
                                 border=0,
                                 font=('Arial', 16, 'bold'),
-                                text="Comprar",
+                                text="Calcular monto",
                                 )
-                Comprar.place(relx=0.398, rely=0.62)
+                CalcMFinal.place(relx=0.398, rely=0.62)
+
+                CalcMFinal = tk.Button(VentanaSec1,
+                                command = BoletoComprado,
+                                background="#49ab81",
+                                foreground="#18392b",
+                                activebackground="#dcbb57",
+                                activeforeground="#18392b",
+                                highlightthickness=2,
+                                highlightcolor="#dcbb57",
+                                width=14,
+                                height=1,
+                                border=0,
+                                font=('Arial', 16, 'bold'),
+                                text="Finalizar compra",
+                                )
+                CalcMFinal.place(relx=0.398, rely=0.7)
 
                 Edades = ['5 - 15', '16 - 18', '19 - 29', '30 - 39', '40 - 60+']
                 TipoEdades = ttk.Combobox(VentanaSec1,
@@ -355,6 +405,11 @@ def VentaBoletos():
                 texto7 = ttk.Label(VentanaSec1, text="Monto", style="S1.TLabel")
                 texto7.place(relx=0.412, rely=0.43)
 
+
+
+
+
+
     elif VentanaEleccion == 'Turista':
 
         global subBorde5, subBorde6, sublogo3
@@ -365,14 +420,21 @@ def VentaBoletos():
 
         def MontoEdad2():
             global Mfinal2
-            if TipoEdades2.get() == '5 - 15':
-                Mfina2 = 40
-            elif TipoEdades2.get() in ['16 - 18', '19 - 29', '30 - 39']:
-                Mfinal2 = 70 
-            elif TipoEdades2.get() == '40 - 60+':
+            if TipoEdades2.get() == '':
+                messagebox.showerror("Error", "Seleccione una edad válida")
+                Mfinal2 = None
+                return None
+            edad = TipoEdades2.get()
+            if edad == '5 - 15':
+                Mfinal2 = 40
+            elif edad in ['16 - 18', '19 - 29', '30 - 39']:
+                Mfinal2 = 70
+            elif edad == '40 - 60+':
                 Mfinal2 = 45
             else:
                 messagebox.showerror("Error", "Seleccione una edad válida")
+                Mfinal2 = None
+                return None
 
         def MontoCantidad2():
             global CantidadPersonas2
@@ -380,73 +442,94 @@ def VentaBoletos():
                 CantidadPersonas2 = int(TipoCantidad2.get())
             except ValueError:
                 messagebox.showerror("Error", "Seleccione una cantidad válida")
+                CantidadPersonas2 = None
 
         def MontoFinal2():
             MontoEdad2()
             MontoCantidad2()
 
             def Parte1_2():
-                if Mfinal2 == 45 and CantidadPersonas2 >= 4:
-                    return Mfinal2 * CantidadPersonas2 * (1 - 0.15)
-                elif Mfinal2 == 70 and CantidadPersonas2 >= 4:
-                    return Mfinal2 * CantidadPersonas2 * (1 - 0.15)
-                elif Mfinal2 == 40 and CantidadPersonas2 >= 4:
-                    return Mfinal2 * CantidadPersonas2 * (1 - 0.15)
-                elif Mfinal2 == 40 and CantidadPersonas2 <= 3:
-                    return Mfinal2 * CantidadPersonas2
-                elif Mfinal2 == 70 and CantidadPersonas2 <= 3:
-                    return Mfinal2 * CantidadPersonas2
-                elif Mfinal2 == 45 and CantidadPersonas2 <= 3:
-                    return Mfinal2 * CantidadPersonas2
+                global Mfinal2
+                if Mfinal2 != None and CantidadPersonas2 != None:
+                    if Mfinal2 == 45 and CantidadPersonas2 >= 4:
+                        return Mfinal2 * CantidadPersonas2 * (1 - 0.15)
+                    elif Mfinal2 == 70 and CantidadPersonas2 >= 4:
+                        return Mfinal2 * CantidadPersonas2 * (1 - 0.15)
+                    elif Mfinal2 == 40 and CantidadPersonas2 >= 4:
+                        return Mfinal2 * CantidadPersonas2 * (1 - 0.15)
+                    elif Mfinal2 == 40 and CantidadPersonas2 <= 3:
+                        return Mfinal2 * CantidadPersonas2
+                    elif Mfinal2 == 70 and CantidadPersonas2 <= 3:
+                        return Mfinal2 * CantidadPersonas2
+                    elif Mfinal2 == 45 and CantidadPersonas2 <= 3:
+                        return Mfinal2 * CantidadPersonas2
+                else:
+                    return 0
 
             def Parte2_2():
                 tarifa2 = 0
-                if inicio_var2.get() == "Tecate" and destino_var2.get() == "Tijuana":
-                    tarifa2 = 30 
-                elif inicio_var2.get() == "Tecate" and destino_var2.get() == "Mexicali":
-                    tarifa2 = 40 
-                elif inicio_var2.get() == "Tecate" and destino_var2.get() == "Ensenada":
-                    tarifa2 = 50 
-                elif inicio_var2.get() == "Tecate" and destino_var2.get() == "Rosarito":
-                    tarif2a = 50 
+                if inicio_var2.get() != "" and destino_var2.get() != "":
+                    if inicio_var2.get() == "Tecate" and destino_var2.get() == "Tijuana":
+                        tarifa2 = 30 
+                    elif inicio_var2.get() == "Tecate" and destino_var2.get() == "Mexicali":
+                        tarifa2 = 40 
+                    elif inicio_var2.get() == "Tecate" and destino_var2.get() == "Ensenada":
+                        tarifa2 = 50 
+                    elif inicio_var2.get() == "Tecate" and destino_var2.get() == "Rosarito":
+                        tarifa2 = 50 
+                    elif inicio_var2.get() == "Tecate" and destino_var2.get() == "Tecate":
+                        messagebox.showerror("Error!","Tu inicio y destino no pueden ser iguales!")
 
-                elif inicio_var2.get() == "Tijuana" and destino_var2.get() == "Tecate":
-                    tarifa2 = 30 
-                elif inicio_var2.get() == "Tijuana" and destino_var2.get() == "Mexicali":
-                    tarifa2 = 40 
-                elif inicio_var2.get() == "Tijuana" and destino_var2.get() == "Ensenada":
-                    tarifa2 = 50 
-                elif inicio_var2.get() == "Tijuana" and destino_var2.get() == "Rosarito":
-                    tarifa2 = 50 
+                    elif inicio_var2.get() == "Tijuana" and destino_var2.get() == "Tecate":
+                        tarifa2 = 30 
+                    elif inicio_var2.get() == "Tijuana" and destino_var2.get() == "Mexicali":
+                        tarifa2 = 40 
+                    elif inicio_var2.get() == "Tijuana" and destino_var2.get() == "Ensenada":
+                        tarifa2 = 50 
+                    elif inicio_var2.get() == "Tijuana" and destino_var2.get() == "Rosarito":
+                        tarifa2 = 50
+                    elif inicio_var2.get() == "Tijuana" and destino_var2.get() == "Tijuana":
+                        messagebox.showerror("Error!","Tu inicio y destino no pueden ser iguales!")
 
-                elif inicio_var2.get() == "Mexicali" and destino_var2.get() == "Tijuana":
-                    tarifa2 = 30 
-                elif inicio_var2.get() == "Mexicali" and destino_var2.get() == "Tecate":
-                    tarifa2 = 40 
-                elif inicio_var2.get() == "Mexicali" and destino_var2.get() == "Ensenada":
-                    tarifa2 = 50 
-                elif inicio_var2.get() == "Mexicali" and destino_var2.get() == "Rosarito":
-                    tarifa2 = 50 
+                    elif inicio_var2.get() == "Mexicali" and destino_var2.get() == "Tijuana":
+                        tarifa2 = 30 
+                    elif inicio_var2.get() == "Mexicali" and destino_var2.get() == "Tecate":
+                        tarifa2 = 40 
+                    elif inicio_var2.get() == "Mexicali" and destino_var2.get() == "Ensenada":
+                        tarifa2 = 50 
+                    elif inicio_var2.get() == "Mexicali" and destino_var2.get() == "Rosarito":
+                        tarifa2 = 50
+                    elif inicio_var2.get() == "Mexicali" and destino_var2.get() == "Mexicali":
+                        messagebox.showerror("Error!","Tu inicio y destino no pueden ser iguales!")
 
-                elif inicio_var2.get() == "Ensenada" and destino_var2.get() == "Tijuana":
-                    tarifa2 = 50 
-                elif inicio_var2.get() == "Ensenada" and destino_var2.get() == "Mexicali":
-                    tarifa2 = 50 
-                elif inicio_var2.get() == "Ensenada" and destino_var2.get() == "Tecate":
-                    tarifa2 = 50 
-                elif inicio_var2.get() == "Ensenada" and destino_var2.get() == "Rosarito":
-                    tarifa2 = 30 
+                    elif inicio_var2.get() == "Ensenada" and destino_var2.get() == "Tijuana":
+                        tarifa2 = 50 
+                    elif inicio_var2.get() == "Ensenada" and destino_var2.get() == "Mexicali":
+                        tarifa2 = 50 
+                    elif inicio_var2.get() == "Ensenada" and destino_var2.get() == "Tecate":
+                        tarifa2 = 50 
+                    elif inicio_var2.get() == "Ensenada" and destino_var2.get() == "Rosarito":
+                        tarifa2 = 30
+                    elif inicio_var2.get() == "Ensenada" and destino_var2.get() == "Ensenada":
+                        messagebox.showerror("Error!","Tu inicio y destino no pueden ser iguales!") 
 
-                elif inicio_var2.get() == "Rosarito" and destino_var2.get() == "Tijuana":
-                    tarifa2 = 50 
-                elif inicio_var2.get() == "Rosarito" and destino_var2.get() == "Mexicali":
-                    tarifa2 = 50 
-                elif inicio_var2.get() == "Rosarito" and destino_var2.get() == "Ensenada":
-                    tarifa2 = 30 
-                elif inicio_var2.get() == "Rosarito" and destino_var2.get() == "Tecate":
-                    tarifa2 = 50 
+                    elif inicio_var2.get() == "Rosarito" and destino_var2.get() == "Tijuana":
+                        tarifa2 = 50 
+                    elif inicio_var2.get() == "Rosarito" and destino_var2.get() == "Mexicali":
+                        tarifa2 = 50 
+                    elif inicio_var2.get() == "Rosarito" and destino_var2.get() == "Ensenada":
+                        tarifa2 = 30 
+                    elif inicio_var2.get() == "Rosarito" and destino_var2.get() == "Tecate":
+                        tarifa2 = 50
+                    elif inicio_var2.get() == "Rosarito" and destino_var2.get() == "Rosarito":
+                        messagebox.showerror("Error!","Tu inicio y destino no pueden ser iguales!")
+                        
+                    return tarifa2 * CantidadPersonas2
+                
+                elif inicio_var2.get() == "" and destino_var2.get() == "":
+                    messagebox.showerror("Error!","Elige un inicio y destino!")
 
-                return tarifa2 * CantidadPersonas2
+                return 0
 
             M3 = Parte1_2()
             M4 = Parte2_2()
@@ -470,10 +553,10 @@ def VentaBoletos():
             VentanaSec4.iconbitmap("C:\\Users\\RogSt\\Desktop\\Coding\\ProgEst\\ProyectoFinal\\imagenes\\IconoVentana.ico")
             VentanaSec4.resizable(width=False, height=False)
 
-            texto15 = ttk.Label(VentanaSec4, text="sistema de cobro:", style="S1.TLabel")
+            texto15 = ttk.Label(VentanaSec4, text="Sistema de cobro:", style="S1.TLabel")
             texto15.place(relx=0.23, rely=0.05)
 
-            texto16 = ttk.Label(VentanaSec4, text="-----------------------------------------------------\n Para saber el monto total que se cobrara, \n primero se calcula cuanto se cobra cada\n boleto dependiendo de la edad del individuo\n despues se suma el costo de cada boleto y\n se obtiene el valor total que sera cobrado\n-----------------------------------------------------", style="S4.TLabel")
+            texto16 = ttk.Label(VentanaSec4, text="-----------------------------------------------------\n Para saber el monto total que se cobrará, \n primero se calcula cuánto se cobra cada\n boleto dependiendo de la edad del individuo\n después se suma el costo de cada boleto y\n se obtiene el valor total que será cobrado\n-----------------------------------------------------", style="S4.TLabel")
             texto16.place(relx=0.15, rely=0.15)
 
             texto17 = ttk.Label(VentanaSec4, text="Edades", style="S1.TLabel")
@@ -514,7 +597,7 @@ def VentaBoletos():
                     inicio_var2.set("")
 
                 def reset_destino2():
-                    destino_var.set("")
+                    destino_var2.set("")
 
                 VBoletos.withdraw()
                 VentanaSec3 = Toplevel()
@@ -697,6 +780,7 @@ def VentaBoletos():
 
                 texto14 = ttk.Label(VentanaSec3, text="Monto", style="S1.TLabel")
                 texto14.place(relx=0.412, rely=0.43)
+
     else:
         messagebox.showerror("Error!", "Elige el tipo de boleto!")
 
@@ -803,21 +887,16 @@ salir.place(relx=0.295, rely=0.88)
 
 VBoletos.mainloop()
 
+"""
 
+    ====Faltane====
+    
+    ->Viaje<-
+    - Crear ventana de recibo
+    - Crear combobox de horario
+    - agregar radiobutons para preguntar si los menores de edad van acompañados
 
-
-""" 
-Faltante:
-
-    -> viajes <-
-    -Restrinccion para que menores de edad no viajen sin adultos
-    -agregar horarios
-    -Messagebox que tenga los datos finales(costos, cantidad de boletos, horario, inicio y destino de viaje)
-
-    -> turistas <-
-    -Restrinccion para que menores de edad no viajen sin adultos
-    -agregar horarios
-    -Messagebox que tenga los datos finales(costos, cantidad de boletos, horario, inicio y destino de viaje)
-    -agregar combobox para elegir la clase del viaje
+    ->Turista<-
+    - modificar para rear segunda ventana
 
 """

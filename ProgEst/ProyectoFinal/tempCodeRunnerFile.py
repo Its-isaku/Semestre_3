@@ -1,2 +1,2 @@
 
-                            border = 0,
+            texto6.config(text="$" + str(total))
