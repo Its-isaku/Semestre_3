@@ -27,8 +27,8 @@ calculadora = Tk()
 calculadora.geometry("400x300")
 calculadora.title("Calculadora Basica")
 calculadora.configure(bg="#387E71")
-img = PhotoImage(file='D:\\Coding\\ProgEst\Tareas\\M3_2\\calculadora.png')
-calculadora.iconphoto(False, img)
+#img = PhotoImage(file='D:\\Coding\\ProgEst\Tareas\\M3_2\\calculadora.png')
+#calculadora.iconphoto(False, img)
 calculadora.resizable(width=False, height=False)
 
 #creando labels y entradas
