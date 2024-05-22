@@ -536,16 +536,29 @@ def VentaBoletos():
             
             edad = TipoEdades2.get()
 
-            if edad in ['5 - 15','16 - 18'] and Adulto_var2.get() == "No":
-                messagebox.showerror("Error", "Un adulto debe ir contigo!")
-                return None
-
             if edad in ['5 - 15','16 - 18']:
-                Mfinal2 = 40
-            elif edad in ['19 - 29', '30 - 39']:
-                Mfinal2 = 70
-            elif edad == '40 - 60+':
-                Mfinal2 = 45
+                messagebox.showerror("Error", "No se permiten menores de edad!")
+                return None
+            
+            if TipoClase.get() == '1ra Clase':
+
+                if edad in ['19 - 29', '30 - 39']:
+                    Mfinal2 = 1000
+                elif edad == '40 - 60+':
+                    Mfinal2 = 850
+                
+            elif TipoClase.get() == '2da Clase':
+                if edad in ['19 - 29', '30 - 39']:
+                    Mfinal2 = 800
+                elif edad == '40 - 60+':
+                    Mfinal2 = 700
+            
+            elif TipoClase.get() == '3ra Clase':
+                if edad in ['19 - 29', '30 - 39']:
+                    Mfinal2 = 600
+                elif edad == '40 - 60+':
+                    Mfinal2 = 500
+
 
             return True
 
@@ -561,34 +574,46 @@ def VentaBoletos():
                 return False
 
         def MontoFinal2():
-
-            MontoEdad2()
-            MontoCantidad2()
-
-            if MontoEdad2() is None and MontoCantidad2() is None:
+            
+            if MontoEdad2() is None or MontoCantidad2() is None:
                 messagebox.showerror("Error!", "Debes completar los requerimientos")
                 return
 
             def Parte1_2():
-
                 global Mfinal2
-
                 if Mfinal2 is not None and CantidadPersonas2 is not None:
-                    if Mfinal2 == 45 and CantidadPersonas2 >= 4:
-                        return Mfinal2 * CantidadPersonas2 * (1 - 0.15)
-                    elif Mfinal2 == 70 and CantidadPersonas2 >= 4:
-                        return Mfinal2 * CantidadPersonas2 * (1 - 0.15)
-                    elif Mfinal2 == 40 and CantidadPersonas2 >= 4:
-                        return Mfinal2 * CantidadPersonas2 * (1 - 0.15)
-                    else:
-                        return Mfinal2 * CantidadPersonas2
+                    if TipoClase.get() == '1ra Clase':
+                        if Mfinal2 == 850 and CantidadPersonas2 >= 4:
+                            return Mfinal2 * CantidadPersonas2 * (1 - 0.15)
+                        elif Mfinal2 == 1000 and CantidadPersonas2 >= 4:
+                            return Mfinal2 * CantidadPersonas2 * (1 - 0.15)
+                        else:
+                            return Mfinal2 * CantidadPersonas2
+
+                    elif TipoClase.get() == '2da Clase':
+                        if Mfinal2 == 700 and CantidadPersonas2 >= 4:
+                            return Mfinal2 * CantidadPersonas2 * (1 - 0.15)
+                        elif Mfinal2 == 800 and CantidadPersonas2 >= 4:
+                            return Mfinal2 * CantidadPersonas2 * (1 - 0.15)
+                        else:
+                            return Mfinal2 * CantidadPersonas2
+
+                    elif TipoClase.get() == '3ra Clase':
+                        if Mfinal2 == 500 and CantidadPersonas2 >= 4:
+                            return Mfinal2 * CantidadPersonas2 * (1 - 0.15)
+                        elif Mfinal2 == 600 and CantidadPersonas2 >= 4:
+                            return Mfinal2 * CantidadPersonas2 * (1 - 0.15)
+                        else:
+                            return Mfinal2 * CantidadPersonas2
+
+                    elif TipoClase.get() == '':
+                        messagebox.showerror("Error!", "Debes elegir una clase!")
+                        return 0
                 else:
                     return 0
-    
+
             def Parte2_2():
-
                 tarifa2 = 0
-
                 if inicio_var2.get() == "" or destino_var2.get() == "" or inicio_var2.get() == destino_var2.get():
                     messagebox.showerror("Error!", "Elige un inicio y destino válidos!")
                     return 0
@@ -601,7 +626,7 @@ def VentaBoletos():
                     tarifa2 = 50 
                 elif inicio_var2.get() == "Tecate" and destino_var2.get() == "Rosarito":
                     tarifa2 = 50 
-    
+
                 elif inicio_var2.get() == "Tijuana" and destino_var2.get() == "Tecate":
                     tarifa2 = 30 
                 elif inicio_var2.get() == "Tijuana" and destino_var2.get() == "Mexicali":
@@ -610,7 +635,7 @@ def VentaBoletos():
                     tarifa2 = 50 
                 elif inicio_var2.get() == "Tijuana" and destino_var2.get() == "Rosarito":
                     tarifa2 = 50
-    
+
                 elif inicio_var2.get() == "Mexicali" and destino_var2.get() == "Tijuana":
                     tarifa2 = 30 
                 elif inicio_var2.get() == "Mexicali" and destino_var2.get() == "Tecate":
@@ -619,7 +644,7 @@ def VentaBoletos():
                     tarifa2 = 50 
                 elif inicio_var2.get() == "Mexicali" and destino_var2.get() == "Rosarito":
                     tarifa2 = 50
-    
+
                 elif inicio_var2.get() == "Ensenada" and destino_var2.get() == "Tijuana":
                     tarifa2 = 50 
                 elif inicio_var2.get() == "Ensenada" and destino_var2.get() == "Mexicali":
@@ -628,7 +653,7 @@ def VentaBoletos():
                     tarifa2 = 50 
                 elif inicio_var2.get() == "Ensenada" and destino_var2.get() == "Rosarito":
                     tarifa2 = 30 
-    
+
                 elif inicio_var2.get() == "Rosarito" and destino_var2.get() == "Tijuana":
                     tarifa2 = 50 
                 elif inicio_var2.get() == "Rosarito" and destino_var2.get() == "Mexicali":
@@ -637,13 +662,17 @@ def VentaBoletos():
                     tarifa2 = 30 
                 elif inicio_var2.get() == "Rosarito" and destino_var2.get() == "Tecate":
                     tarifa2 = 50
-                            
+
                 return tarifa2 * CantidadPersonas2
-    
-    
+
             M3 = Parte1_2()
             M4 = Parte2_2()
-    
+
+            if M3 is None:
+                M3 = 0
+            if M4 is None:
+                M4 = 0
+
             total2 = M3 + M4
             texto13.config(text="$" + str(total2))
 
@@ -659,23 +688,42 @@ def VentaBoletos():
             VentanaSec3.withdraw()
             VentanaSec4 = Toplevel()
 
-            VentanaSec4.geometry('800x600')
+            VentanaSec4.geometry('1000x900')
             VentanaSec4.configure(bg = "#295f48")
             VentanaSec4.title('Compra de boletos')
             VentanaSec4.iconbitmap("C:\\Users\\RogSt\\Desktop\\Coding\\ProgEst\\ProyectoFinal\\imagenes\\IconoVentana.ico")
             VentanaSec4.resizable(width = False, height = False)
 
-            texto15 = ttk.Label(VentanaSec4, text="Sistema de cobro:", style="S1.TLabel")
-            texto15.place(relx=0.23, rely=0.05)
-
-            texto16 = ttk.Label(VentanaSec4, text="-----------------------------------------------------\n Para saber el monto total que se cobrará, \n primero se calcula cuánto se cobra cada\n boleto dependiendo de la edad del individuo\n después se suma el costo de cada boleto y\n se obtiene el valor total que será cobrado\n-----------------------------------------------------", style="S4.TLabel")
-            texto16.place(relx=0.15, rely=0.15)
-
             texto17 = ttk.Label(VentanaSec4, text="Edades", style="S1.TLabel")
-            texto17.place(relx=0.38, rely=0.5)
+            texto17.place(relx=0.41, rely=0.02)
 
-            texto18 = ttk.Label(VentanaSec4, text="------------------------\n De la edad 40 hacia\n adelante se hace un\n descuento del 15%\n------------------------", style="S4.TLabel")
-            texto18.place(relx=0.33, rely=0.6)
+            texto18 = ttk.Label(VentanaSec4, text="----------------------------------------------------------------\nEn cualquier clase, al elegir tu edad si pasas de los 40\n         años de edad se hace un descuento del 15%\n----------------------------------------------------------------", style="S4.TLabel")
+            texto18.place(relx=0.18, rely=0.07)
+
+
+
+
+            texto19 = ttk.Label(VentanaSec4, text="1ra Clase", style="S1.TLabel")
+            texto19.place(relx=0.38, rely=0.17)
+
+            texto20 = ttk.Label(VentanaSec4, text="----------------------------------------------------------------------\n  En esta Clase se hara un tour en cada ciudad listada en la\ncompra de boletos, en la compra de esta clase se incluye \n la reservacion de hoteles 5 estrellas con todo incluido en\n     cada ciudad del tour, tambien incluye visitas a lugares\n                    turisticos como playas, jardines, y\n                     lugares iconicos de cada ciudad\n----------------------------------------------------------------------", style="S4.TLabel")
+            texto20.place(relx=0.15, rely=0.22)
+
+            texto19 = ttk.Label(VentanaSec4, text="2da Clase", style="S1.TLabel")
+            texto19.place(relx=0.38, rely=0.43)
+
+            texto20 = ttk.Label(VentanaSec4, text="----------------------------------------------------------------------\n  En esta Clase se hara un tour en cada ciudad listada en la\ncompra de boletos, en la compra de esta clse se incluye \n la reservacion de hoteles 4 estrellas con todo incluido en\n     cada ciudad del tour, tambien incluye visitas a lugares\n                    turisticos como playas, jardines, y\n                     lugares iconicos de cada ciudad\n----------------------------------------------------------------------", style="S4.TLabel")
+            texto20.place(relx=0.15, rely=0.48)
+
+            texto19 = ttk.Label(VentanaSec4, text="3ra Clase", style="S1.TLabel")
+            texto19.place(relx=0.38, rely=0.69)
+
+            texto20 = ttk.Label(VentanaSec4, text="----------------------------------------------------------------------\n  En esta Clase se hara un tour en cada ciudad listada en la\n  compra de boletos, en la compra de esta clse se incluye \n    la reservacion de hoteles 2 estrellas (NO tienen todo\n     incluido) en cada ciudad del tour, tambien incluye visitas\n                    a lugares iconicos de cada ciudad\n----------------------------------------------------------------------", style="S4.TLabel")
+            texto20.place(relx=0.15, rely=0.74)
+
+
+
+
 
             imagen7 = tk.PhotoImage(file="C:\\Users\\RogSt\\Desktop\\Coding\\ProgEst\\ProyectoFinal\\imagenes\\derecho.png")
             subBorde5 = imagen7.subsample(3)
@@ -685,7 +733,7 @@ def VentaBoletos():
             imagen8 = tk.PhotoImage(file="C:\\Users\\RogSt\\Desktop\\Coding\\ProgEst\\ProyectoFinal\\imagenes\\izquierdo.png")
             subBorde6 = imagen8.subsample(3)
             BordeIzquierdo3 = tk.Label(VentanaSec4, bg="#295f48", image=subBorde6)
-            BordeIzquierdo3.place(relx=0.89, rely=0.0)
+            BordeIzquierdo3.place(relx=0.91, rely=0.0)
 
             salir = tk.Button(VentanaSec4,
                             command=ev4,
@@ -701,7 +749,7 @@ def VentaBoletos():
                             font=('Arial', 16, 'bold'),
                             text="Salir",
                             )
-            salir.place(relx=0.4, rely=0.9)
+            salir.place(relx=0.4, rely=0.93)
 
         if TipoBoleto.get() != "":
 
@@ -719,6 +767,7 @@ def VentaBoletos():
                     DestinoViaje2 = destino_var2.get()
                     HorarioViaje2 = TipoHorario2.get()
                     Total2 = MontoFinal2()
+                    Clase = TipoClase.get()
                     
 
                     VentanaSec3.withdraw()
@@ -748,8 +797,11 @@ def VentaBoletos():
                     texto24 = ttk.Label(VentanaSec5, text=f"El total cobrado es: ${Total2}\n", style="S4.TLabel")
                     texto24.place(relx=0.12, rely=0.5)
 
+                    texto24 = ttk.Label(VentanaSec5, text=f"El viaje sera en: {Clase}\n", style="S4.TLabel")
+                    texto24.place(relx=0.12, rely=0.56)
+
                     texto25 = ttk.Label(VentanaSec5, text="------------------------------\n", style="S4.TLabel")
-                    texto25.place(relx=0.12, rely=0.56)
+                    texto25.place(relx=0.12, rely=0.6)
 
                     imagen14 = tk.PhotoImage(file="C:\\Users\\RogSt\\Desktop\\Coding\\ProgEst\\ProyectoFinal\\imagenes\\bordeArriba.png")
                     subBorde9 = imagen14.subsample(3)
@@ -783,9 +835,6 @@ def VentaBoletos():
                 def reset_destino2():
                     destino_var2.set("")
 
-                def reset_Adulto2():
-                    Adulto_var2.set("")
-
                 VBoletos.withdraw()
                 VentanaSec3 = Toplevel()
 
@@ -797,7 +846,6 @@ def VentaBoletos():
 
                 inicio_var2 = tk.StringVar()
                 destino_var2 = tk.StringVar()
-                Adulto_var2 = tk.StringVar()
 
                 imagen4 = tk.PhotoImage(file="C:\\Users\\RogSt\\Desktop\\Coding\\ProgEst\\ProyectoFinal\\imagenes\\bordeArriba.png")
                 subBorde3 = imagen4.subsample(3)
@@ -826,7 +874,7 @@ def VentaBoletos():
                                 font=('Arial', 16, 'bold'),
                                 text="Salir",
                                 )
-                salir.place(relx=0.36, rely=0.78)
+                salir.place(relx=0.36, rely=0.82)
 
                 Promos2 = tk.Button(VentanaSec3,
                                 command=Promos2,
@@ -842,7 +890,7 @@ def VentaBoletos():
                                 font=('Arial', 16, 'bold'),
                                 text="Promos",
                                 )
-                Promos2.place(relx=0.5, rely=0.78)
+                Promos2.place(relx=0.5, rely=0.82)
 
                 CalcMFinal2 = tk.Button(VentanaSec3,
                                 command=MontoFinal2,
@@ -858,7 +906,7 @@ def VentaBoletos():
                                 font=('Arial', 16, 'bold'),
                                 text="Calcular monto",
                                 )
-                CalcMFinal2.place(relx=0.398, rely=0.62)
+                CalcMFinal2.place(relx=0.295, rely=0.75)
 
                 FinalizarCompra2 = tk.Button(VentanaSec3,
                                 command = BoletoComprado2,
@@ -874,7 +922,7 @@ def VentaBoletos():
                                 font=('Arial', 16, 'bold'),
                                 text="Finalizar compra",
                                 )
-                FinalizarCompra2.place(relx=0.398, rely=0.7)
+                FinalizarCompra2.place(relx=0.5, rely=0.75)
 
                 Edades2 = ['5 - 15', '16 - 18', '19 - 29', '30 - 39', '40 - 60+']
                 TipoEdades2 = ttk.Combobox(VentanaSec3,
@@ -901,6 +949,19 @@ def VentaBoletos():
                                     )
                 TipoHorario2.place(relx=0.347, rely=0.3)
 
+                global TipoClase
+                clase = ['1ra Clase', '2da Clase', '3ra Clase']
+                TipoClase = ttk.Combobox(VentanaSec3,
+                                    values=clase,
+                                    background="#49ab81",
+                                    foreground="#142b25",
+                                    width=11,
+                                    height=10,
+                                    font=('Fonseca', 25, 'bold'),
+                                    justify="center"
+                                    )
+                TipoClase.place(relx=0.347, rely=0.47)
+
                 global TipoCantidad2
                 Cantidad2 = ['1', '2', '3', '4', '5', '6']
                 TipoCantidad2 = ttk.Combobox(VentanaSec3,
@@ -924,49 +985,43 @@ def VentaBoletos():
                 texto4.place(relx=0.668, rely=0.22)
 
                 texto5 = ttk.Label(VentanaSec3, text="Inicio", style="S1.TLabel")
-                texto5.place(relx=0.13, rely=0.46)
+                texto5.place(relx=0.08, rely=0.46)
 
                 texto6 = ttk.Label(VentanaSec3, text="Destino", style="S1.TLabel")
-                texto6.place(relx=0.68, rely=0.46)
+                texto6.place(relx=0.73, rely=0.46)
 
-                texto7 = ttk.Label(VentanaSec3, text="     Si eres menor a 18, vienes con un adulto?", style="S5.TLabel")
-                texto7.place(relx=0.028, rely=0.37)
-
+                texto3 = ttk.Label(VentanaSec3, text="Clase", style="S1.TLabel")
+                texto3.place(relx=0.427, rely=0.39)
+                
                 Tecate1 = ttk.Radiobutton(VentanaSec3, text="Tecate", variable=inicio_var2, value="Tecate", style="S1.TRadiobutton")
-                Tecate1.place(relx=0.13, rely=0.55)
+                Tecate1.place(relx=0.08, rely=0.55)
 
                 Tijuana1 = ttk.Radiobutton(VentanaSec3, text="Tijuana", variable=inicio_var2, value="Tijuana", style="S1.TRadiobutton")
-                Tijuana1.place(relx=0.13, rely=0.6)
+                Tijuana1.place(relx=0.08, rely=0.6)
 
                 Mexicali1 = ttk.Radiobutton(VentanaSec3, text="Mexicali", variable=inicio_var2, value="Mexicali", style="S1.TRadiobutton")
-                Mexicali1.place(relx=0.13, rely=0.65)
+                Mexicali1.place(relx=0.08, rely=0.65)
 
                 Ensenada1 = ttk.Radiobutton(VentanaSec3, text="Ensenada", variable=inicio_var2, value="Ensenada", style="S1.TRadiobutton")
-                Ensenada1.place(relx=0.13, rely=0.7)
+                Ensenada1.place(relx=0.08, rely=0.7)
 
                 Rosarito1 = ttk.Radiobutton(VentanaSec3, text="Rosarito", variable=inicio_var2, value="Rosarito", style="S1.TRadiobutton")
-                Rosarito1.place(relx=0.13, rely=0.75)
+                Rosarito1.place(relx=0.08, rely=0.75)
 
                 Tecate2 = ttk.Radiobutton(VentanaSec3, text="Tecate", variable=destino_var2, value="Tecate", style="S1.TRadiobutton")
-                Tecate2.place(relx=0.68, rely=0.55)
+                Tecate2.place(relx=0.73, rely=0.55)
 
                 Tijuana2 = ttk.Radiobutton(VentanaSec3, text="Tijuana", variable=destino_var2, value="Tijuana", style="S1.TRadiobutton")
-                Tijuana2.place(relx=0.68, rely=0.6)
+                Tijuana2.place(relx=0.73, rely=0.6)
 
                 Mexicali2 = ttk.Radiobutton(VentanaSec3, text="Mexicali", variable=destino_var2, value="Mexicali", style="S1.TRadiobutton")
-                Mexicali2.place(relx=0.68, rely=0.65)
+                Mexicali2.place(relx=0.73, rely=0.65)
 
                 Ensenada2 = ttk.Radiobutton(VentanaSec3, text="Ensenada", variable=destino_var2, value="Ensenada", style="S1.TRadiobutton")
-                Ensenada2.place(relx=0.68, rely=0.7)
+                Ensenada2.place(relx=0.73, rely=0.7)
 
                 Rosarito2 = ttk.Radiobutton(VentanaSec3, text="Rosarito", variable=destino_var2, value="Rosarito", style="S1.TRadiobutton")
-                Rosarito2.place(relx=0.68, rely=0.75)
-
-                AdultoSi2 = ttk.Radiobutton(VentanaSec3, text="Si", variable = Adulto_var2, value="Si", style="S2.TRadiobutton")
-                AdultoSi2.place(relx=0.08, rely=0.42)
-
-                AdultoNo2 = ttk.Radiobutton(VentanaSec3, text="No", variable = Adulto_var2, value="No", style="S2.TRadiobutton")
-                AdultoNo2.place(relx=0.13, rely=0.42)
+                Rosarito2.place(relx=0.73, rely=0.75)
 
                 resetInicio2 = tk.Button(VentanaSec3,
                                         command=reset_inicio2,
@@ -982,7 +1037,7 @@ def VentaBoletos():
                                         font=('Arial', 16, 'bold'),
                                         text="Reset",
                                         )
-                resetInicio2.place(relx=0.15, rely=0.82)
+                resetInicio2.place(relx=0.1, rely=0.82)
 
                 resetDestino2 = tk.Button(VentanaSec3,
                                         command=reset_destino2,
@@ -998,50 +1053,16 @@ def VentaBoletos():
                                         font=('Arial', 16, 'bold'),
                                         text="Reset",
                                         )
-                resetDestino2.place(relx=0.7, rely=0.82)
-
-                resetAdulto2 = tk.Button(VentanaSec3,
-                                        command=reset_Adulto2,
-                                        background="#49ab81",
-                                        foreground="#18392b",
-                                        activebackground="#dcbb57",
-                                        activeforeground="#18392b",
-                                        highlightthickness=2,
-                                        highlightcolor="#dcbb57",
-                                        width=7,
-                                        height=1,
-                                        border=0,
-                                        font=('Arial', 16, 'bold'),
-                                        text="Reset",
-                                        )
-                resetAdulto2.place(relx=0.2, rely=0.41)
+                resetDestino2.place(relx=0.75, rely=0.82)
 
                 texto13 = ttk.Label(VentanaSec3, text="$          ", style="S3.TLabel")
-                texto13.place(relx=0.41, rely=0.52)
+                texto13.place(relx=0.41, rely=0.65)
 
                 texto14 = ttk.Label(VentanaSec3, text="Monto", style="S1.TLabel")
-                texto14.place(relx=0.412, rely=0.43)
+                texto14.place(relx=0.412, rely=0.57)
 
     else:
         messagebox.showerror("Error!", "Elige el tipo de boleto!")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 VBoletos = tk.Tk()
 
