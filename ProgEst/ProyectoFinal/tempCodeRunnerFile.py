@@ -1,2 +1,2 @@
 
-            texto6.config(text="$" + str(total))
+            def ev3():
