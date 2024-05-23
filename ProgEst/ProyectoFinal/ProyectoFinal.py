@@ -1180,5 +1180,3 @@ salir = tk.Button(VBoletos, text="salir",
 salir.place(relx=0.295, rely=0.88)
 
 VBoletos.mainloop()
-
-#falta terminar seccion turista
