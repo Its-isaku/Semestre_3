@@ -1,0 +1,2 @@
+
+            dibuja_lineas(GRAY)
