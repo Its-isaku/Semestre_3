@@ -46,9 +46,9 @@ int main()
         struct timespec start, end;
         double tiempo_formula1, tiempo_formula2;
 
-        printf("------------------------------------------------------\n");
+        printf("******************************************************\n");
         printf("Bienvendo alproyecto final de estadistica!\n");
-        printf("------------------------------------------------------\n");
+        printf("******************************************************\n");
         printf("\n");
         printf("----------rutinas para graficos----------\n");
         printf("[1]Tallos y hojas........................\n[2]Grafa de puntos.......................\n[3]Histograma............................\n");
@@ -58,15 +58,15 @@ int main()
         printf("[8]Varianza y desviacion estandar........\n");
         printf("\n");
         printf("--------rutinas para Tablas(Z y T)-------\n");
-        printf("[9]Calcular valores alha(tabla Z).......\n[10]Encontrar Z con alpha................\n[11]Localizar T..........................\n[12]Localizar grados de libertad y T.....\n");
+        printf("[9]Calcular valores alha(tabla Z).......\n[10]Encontrar Z con alpha................\n[11]Localizar T..........................\n[12]Localizar grados de libertad y T.....\n[13]Diagrama de dispercion y regresion lineal.....\n");
         printf("\n");
         printf("--------------Otras opciones-------------\n");
         printf("[0]salir....................\n");
         printf("\n");
-        printf("------------------------------------------------------\n");
+        printf("******************************************************\n");
         printf("Que deceas hacer? ");
         scanf("%d", &opc);
-        printf("------------------------------------------------------\n");
+        printf("******************************************************\n");
 
         int n;
         int *arr;
@@ -87,7 +87,7 @@ int main()
 
             //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-            case 3: //Histograma
+            case 3: //Histograma -Despues
                 
             break;
 
@@ -98,9 +98,9 @@ int main()
             case 7: // Mediana
 
             int opc2;
-            printf("Quieres leer los datos de un archivo o propocionarlos tu?\n---------------------------------------\n[1] De un archivo\n[2] Dar los datos\n---------------------------------------\n");
+            printf("Quieres leer los datos de un archivo o propocionarlos tu?\n******************************************************\n[1] De un archivo\n[2] Dar los datos\n******************************************************\n");
             scanf("%d", &opc2);
-            printf("---------------------------------------\n");
+            printf("******************************************************\n");
 
             if(opc2 == 2)
             {
@@ -232,7 +232,7 @@ int main()
             case 6: // Media recortada
 
             int opc3;
-            printf("Quieres leer los datos de un archivo o propocionarlos tu?\n---------------------------------------\n[1] De un archivo\n[2] Dar los datos\n---------------------------------------\n");
+            printf("Quieres leer los datos de un archivo o propocionarlos tu?\n******************************************************\n[1] De un archivo\n[2] Dar los datos\n******************************************************\n");
             scanf("%d", &opc3);
 
             if(opc3 == 2)
@@ -336,7 +336,7 @@ int main()
             case 8: //Varianza y Desviacion estandar
                 
             int opc4;
-            printf("Quieres leer los datos de un archivo o propocionarlos tu?\n---------------------------------------\n[1] De un archivo\n[2] Dar los datos\n---------------------------------------\n");
+            printf("Quieres leer los datos de un archivo o propocionarlos tu?\n******************************************************\n[1] De un archivo\n[2] Dar los datos\n******************************************************\n");
             scanf("%d", &opc4);
 
             if(opc4 == 2)
@@ -605,10 +605,20 @@ int main()
             //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-            case 13: //programa nuevo -Despues
-                
+            case 13: //Diagrama de dispercion y regression lineal
 
+                // Define la ruta al archivo .exe que deseas ejecutar
+                const char *path_to_exe = "C:\\Users\\RogSt\\Desktop\\Coding\\Proyecto_Est\\Programas-Graficos\\regresion-lineal.exe";
 
+                // Usa la función system para ejecutar el archivo .exe
+                int result = system(path_to_exe);
+
+                // Verifica si la ejecución fue exitosa
+                if (result == -1) {
+                    printf("Error al intentar ejecutar el archivo .exe\n");
+                } else {
+                    printf("El archivo .exe se ejecutó correctamente\n");
+                }
 
             break;
 
@@ -620,7 +630,7 @@ int main()
     while (opc > 0);
 
     printf("Gracias por usar el programa, hasta luego!\n");
-    printf("------------------------------------------------------\n");
+    printf("******************************************************\n");
 
     return 0;
 
