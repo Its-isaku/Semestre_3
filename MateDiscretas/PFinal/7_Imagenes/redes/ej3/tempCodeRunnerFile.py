@@ -7,8 +7,12 @@ G = nx.DiGraph()
 
 # agrego los nodos y sus conecciones
 Nodos = [
-    ("b", "e"),
-    ("e", "d"),
+    ("w", "x"),
+    ("w", "z"),
+    ("w", "y"),
+    ("x", "z"),
+    ("x", "y"),
+    ("z", "y"),
 
 ]
 
@@ -17,14 +21,15 @@ for edge in Nodos:
 
 # Defino las posiciones de los nodos
 pos = {
-    "b": (0, 1),
-    "d": (0, 0),
-    "e": (0.5, 0.5)
+    "w": (0, 1),
+    "x": (1, 1),
+    "y": (0, 0),
+    "z": (1, 0),
     
 }
 
 # Se dibuuja la grafica
-plt.figure(figsize=(4, 6))
+plt.figure(figsize=(8, 6))
 
 nx.draw(G, pos, with_labels=True,
         node_size=3000,
@@ -34,5 +39,5 @@ nx.draw(G, pos, with_labels=True,
         arrows=False
         )
 
-plt.title('Red 6.3')
+plt.title('Red 3.2')
 plt.show()

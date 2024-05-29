@@ -1,2 +1,3 @@
 
-            dibuja_lineas(GRAY)
+                ganador = enfrentamiento[0]
+            else:

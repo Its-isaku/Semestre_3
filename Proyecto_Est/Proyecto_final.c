@@ -58,7 +58,7 @@ int main()
         printf("[8]Varianza y desviacion estandar........\n");
         printf("\n");
         printf("--------rutinas para Tablas(Z y T)-------\n");
-        printf("[9]Calcular valores alha(tabla Z).......\n[10]Encontrar Z con alpha................\n[11]Localizar T..........................\n[12]Localizar grados de libertad y T.....\n[13]Diagrama de dispercion y regresion lineal.....\n");
+        printf("[9]Calcular Area bajo la curva(Tabla z)..\n[10]Encontrar Z con alpha................\n[11]Localizar T..........................\n[12]Localizar grados de libertad y T.....\n[13]Diagrama de dispercion y regresion lineal\n");
         printf("\n");
         printf("--------------Otras opciones-------------\n");
         printf("[0]salir....................\n");
@@ -74,24 +74,63 @@ int main()
 
         switch (opc)
         {
-            //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-            case 1: //Tallos y hojas - Despues
+            //--------------------------------------------------------
+            case 1: //Tallos y hojas
+
+            // Define la ruta al archivo .exe que deseas ejecutar
+            const char *path_to_exe1 = "C:\\Users\\RogSt\\Desktop\\Coding\\Proyecto_Est\\Programas-Graficos\\Tallos-y-hojas.exe";
+
+            // Usa la función system para ejecutar el archivo .exe
+            int resultado1 = system(path_to_exe1);
+
+            // Verifica si la ejecución fue exitosa
+            if (resultado1 == -1) {
+                printf("Error al intentar ejecutar el archivo .exe\n");
+            } else {
+                printf("El archivo .exe se ejecutó correctamente\n");
+            }
                 
             break;
 
-            //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            //--------------------------------------------------------
 
-            case 2: //Grafica de puntos - Despues
+            case 2: //Grafica de puntos
+
+            // Define la ruta al archivo .exe que deseas ejecutar
+            const char *path_to_exe2 = "C:\\Users\\RogSt\\Desktop\\Coding\\Proyecto_Est\\Programas-Graficos\\Grafica-de-puntos.exe";
+
+            // Usa la función system para ejecutar el archivo .exe
+            int resultado2 = system(path_to_exe2);
+
+            // Verifica si la ejecución fue exitosa
+            if (resultado2 == -1) {
+                printf("Error al intentar ejecutar el archivo .exe\n");
+            } else {
+                printf("El archivo .exe se ejecutó correctamente\n");
+            }
                 
             break;
 
-            //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            //--------------------------------------------------------
 
-            case 3: //Histograma -Despues
+            case 3: //Histograma 
+
+            // Define la ruta al archivo .exe que deseas ejecutar
+            const char *path_to_exe3 = "C:\\Users\\RogSt\\Desktop\\Coding\\Proyecto_Est\\Programas-Graficos\\histograma.exe";
+
+            // Usa la función system para ejecutar el archivo .exe
+            int resultado3 = system(path_to_exe3);
+
+            // Verifica si la ejecución fue exitosa
+            if (resultado3 == -1) {
+                printf("Error al intentar ejecutar el archivo .exe\n");
+            } else {
+                printf("El archivo .exe se ejecutó correctamente\n");
+            }
                 
             break;
 
-            //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            //--------------------------------------------------------
 
             case 4: // Moda
             case 5: // Media
@@ -489,9 +528,20 @@ int main()
 
             //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-            case 9: //Calcular valores alha(tabla Z y graficar area bajo la curva) - Despues
+            case 9: //Calcular valores alha(tabla Z y graficar area bajo la curva)
 
+            // Define la ruta al archivo .exe que deseas ejecutar
+            const char *path_to_exe4 = "C:\\Users\\RogSt\\Desktop\\Coding\\Proyecto_Est\\Programas-Graficos\\Area-bajo-la-curva.exe";
 
+            // Usa la función system para ejecutar el archivo .exe
+            int resultado4 = system(path_to_exe4);
+
+            // Verifica si la ejecución fue exitosa
+            if (resultado4 == -1) {
+                printf("Error al intentar ejecutar el archivo .exe\n");
+            } else {
+                printf("El archivo .exe se ejecutó correctamente\n");
+            }
                 
             break;
 
@@ -602,19 +652,19 @@ int main()
 
             break;
 
-            //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            //------------------------------------------------
 
 
             case 13: //Diagrama de dispercion y regression lineal
 
                 // Define la ruta al archivo .exe que deseas ejecutar
-                const char *path_to_exe = "C:\\Users\\RogSt\\Desktop\\Coding\\Proyecto_Est\\Programas-Graficos\\regresion-lineal.exe";
+                const char *path_to_exe5 = "C:\\Users\\RogSt\\Desktop\\Coding\\Proyecto_Est\\Programas-Graficos\\regresion-lineal.exe";
 
                 // Usa la función system para ejecutar el archivo .exe
-                int result = system(path_to_exe);
+                int resultado5 = system(path_to_exe5);
 
                 // Verifica si la ejecución fue exitosa
-                if (result == -1) {
+                if (resultado5 == -1) {
                     printf("Error al intentar ejecutar el archivo .exe\n");
                 } else {
                     printf("El archivo .exe se ejecutó correctamente\n");
@@ -622,7 +672,7 @@ int main()
 
             break;
 
-            //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            //------------------------------------------------
 
         }
         
